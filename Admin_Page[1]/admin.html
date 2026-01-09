@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EvenTiamo Admin Dashboard</title>
+  <style>
+    body {
+      background: #0A0A0A;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .topbar {
+      background: #111;
+      padding: 16px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      color: gold;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    .container {
+      padding: 20px;
+    }
+    #loginBox {
+      max-width: 320px;
+      margin: 60px auto;
+      text-align: center;
+    }
+    #loginBox input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background: #000;
+      color: #fff;
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+    #loginBox button {
+      padding: 12px 20px;
+      background: gold;
+      color: black;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #dashboard {
+      display: none;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .stat-card {
+      background: #222;
+      padding: 16px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .event-cards {
+      margin-top: 30px;
+    }
+    .event-card {
+      background: #111;
+      padding: 16px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(255,255,255,0.1);
+    }
+    .controls {
+      margin-top: 30px;
+    }
+    .controls input, .controls select {
+      padding: 10px;
+      margin-right: 8px;
+      border-radius: 6px;
+      border: 1px solid #444;
+      background: #000;
+      color: #fff;
+      font-size: 15px;
+    }
+    .controls button {
+      padding: 10px 16px;
+      margin-right: 8px;
+      border: none;
+      border-radius: 6px;
+      background: gold;
+      color: black;
+      font-size: 15px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px 8px;
+      border-bottom: 1px solid #333;
+      text-align: left;
+      font-size: 14px;
+    }
+    th {
+      background: #111;
+      color: gold;
+      position: sticky;
+      top: 0;
+    }
+    tr:hover {
+      background: #1a1a1a;
+    }
+    .action-btn {
+      padding: 6px 10px;
+      margin-right: 6px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: bold;
+    }
+    .btn-resend { background: #008cff; color: white; }
+    .btn-force { background: #00cc44; color: white; }
+    .btn-undo { background: #cc0000; color: white; }
+
+    /* Chart container */
+    #charts {
+      margin-top: 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+    }
+    .chart-card {
+      background: #111;
+      padding: 16px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(255,255,255,0.1);
+      flex: 1 1 300px;
+      min-width: 280px;
+    }
+    canvas {
+      max-width: 100%;
+      height: auto;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="topbar">🔐 EvenTiamo Admin</div>
+  <div class="container">
+    <div id="loginBox">
+      <input id="pinInput" type="password" placeholder="Enter Admin PIN">
+      <button onclick="validateLogin()">Login</button>
+    </div>
+
+    <div id="dashboard">
+      <div class="stats-grid">
+        <div class="stat-card" id="statTotal">Total: —</div>
+        <div class="stat-card" id="statChecked">Checked-In: —</div>
+        <div class="stat-card" id="statNotChecked">Pending: —</div>
+      </div>
+
+      <div class="event-cards" id="eventsSummary">
+        <!-- Event-wise summary cards injected here -->
+      </div>
+
+      <div class="controls">
+        <input id="searchInput" placeholder="Search by name, email or ticket ID">
+        <select id="eventFilter">
+          <option value="">All Events</option>
+          <option value="Fusion">Fusion</option>
+          <option value="Glam">Glam</option>
+          <option value="Ethnic">Ethnic</option>
+        </select>
+        <select id="statusFilter">
+          <option value="">All Status</option>
+          <option value="Checked">Checked In</option>
+          <option value="Not Checked">Not Checked</option>
+        </select>
+        <button onclick="applyFilters()">Filter</button>
+        <button onclick="resetFilters()">Reset</button>
+        <button onclick="downloadCSV()">Export CSV</button>
+      </div>
+
+      <div id="charts">
+        <div class="chart-card">
+          <canvas id="pieChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <canvas id="barChart"></canvas>
+        </div>
+      </div>
+
+      <table id="dataTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Event</th>
+            <th>Ticket ID</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

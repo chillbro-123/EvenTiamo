@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Fusion 2K24 — EvenTiamo</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <nav class="navbar">
+    <h1 class="logo"><a href="index.html#hero">EvenTiamo</a></h1>
+    <ul>
+      <li><a href="index.html#hero">Home</a></li>
+      <li><a href="index.html#events">Events</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#gallery">Gallery</a></li>
+    </ul>
+  </nav>
+
+  <header class="event-hero" style="background-image:url('images/fusion.jpg')">
+    <div class="overlay"></div>
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="pill">Live · Music Festival</div>
+        <h2 class="event-title">Fusion 2K24</h2>
+        <div class="event-meta small-muted">Fri, Nov 21 · Cubbon Park · Doors 6:30 PM</div>
+        <p class="small-muted">An evening of fusion music blending western grooves with Indian rhythms.</p>
+        <div style="margin-top:1.2rem">
+          <a class="cta-primary" href="#register">Register</a>
+          <a class="cta-ghost" href="#lineup">Lineup</a>
+        </div>
+      </div>
+
+      <aside class="hero-right">
+        <div class="register-panel" id="register">
+          <h3 style="color:gold">Register</h3>
+          <form id="fusionForm">
+            <div class="form-row">
+              <label class="small-muted" for="rname">Full name</label>
+              <input id="rname" name="name" type="text" required placeholder="First & last name" />
+            </div>
+            <div class="form-row">
+              <label class="small-muted" for="remail">Email</label>
+              <input id="remail" name="email" type="email" required placeholder="you@gmail.com" />
+            </div>
+            <div class="form-row">
+              <label class="small-muted" for="rphone">Phone (optional)</label>
+              <input id="rphone" name="phone" type="tel" placeholder="+91 9xxxxxxxxx" />
+            </div>
+
+            <input type="hidden" name="event" value="Fusion 2K24">
+            <div class="form-row">
+              <button type="submit" class="btn">Register & Get Ticket</button>
+            </div>
+
+            <div id="fusionMsg" class="form-note"></div>
+          </form>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main class="section-inner">
+    <a class="back-link" href="index.html#events">← Back</a>
+
+    <div class="details-grid">
+      <div>
+        <section id="about-event">
+          <h3 class="section-title">About the Event</h3>
+          <p class="small-muted">Fusion 2K24 brings together talented musicians and DJs for a night of genre-bending music.</p>
+
+          <h4 id="lineup" class="section-title" style="color:gold">Lineup</h4>
+          <ul class="lineup-list">
+            <li>RagaGroove — Fusion band (8:00 PM)</li>
+            <li>DJ Aarya — Live DJ set (9:15 PM)</li>
+            <li>Acoustic Corner — Unplugged sessions (7:00 PM)</li>
+          </ul>
+
+          <h4 class="section-title" style="color:gold">Gallery</h4>
+          <div class="gallery-grid">
+            <img class="gallery-img" src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=900&q=60" alt="">
+            <img class="gallery-img" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=900&q=60" alt="">
+            <img class="gallery-img" src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=900&q=60" alt="">
+            <img class="gallery-img" src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&w=900&q=60" alt="">
+          </div>
+        </section>
+      </div>
+
+      <aside>
+        <section style="background:rgba(255,255,255,0.02);padding:1rem;border-radius:10px">
+          <h4 class="small-muted">Event highlights</h4>
+          <ul style="list-style:none;padding-left:0;margin-top:.5rem">
+            <li class="small-muted">Pro sound & lighting</li>
+            <li class="small-muted">Limited VIP seating</li>
+          </ul>
+          <div style="margin-top:1rem"><a class="cta-primary" href="#register">Register Now</a></div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <!-- modal -->
+  <div id="modal" aria-hidden="true">
+    <button id="modal-close" aria-label="Close">✕</button>
+    <img id="modal-img" alt="">
+  </div>
+
+  <footer style="margin-top:3rem;padding:2rem;text-align:center;color:#999">
+    © 2025 EvenTiamo · info@eventiamo.com
+  </footer>
+</body>
+</html>
