@@ -1,5 +1,5 @@
 # EvenTiamo
-Eventiamo is a web based college event management platform designed to organize, showcase, and manage college events efficiently with a clean and user-friendly interface.
+Eventiamo is a mini project developed to demonstrate the implementation of a college event management system using HTML, CSS, JavaScript, and QR-based check-in.
 
 Eventiamo – College Event Management Website
 
@@ -41,6 +41,23 @@ Purpose of the Project
 > To help students easily access event details
 
 > To gain hands-on experience in web development
+
+NOTE:
+
+Project Status & Limitations
+
+This is an academic mini project and is currently under development.
+
+Some features are partially implemented including:
+
+Admin login and dashboard
+
+Automated QR code ticket generation via email
+
+Database-based user authentication
+
+Payment gateway integration
+
 
 
 
